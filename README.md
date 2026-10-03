@@ -6,8 +6,13 @@ A dark-mode render planner and animation frame converter. The entire tool is con
 
 - Calculate render duration in seconds, minutes, hours, and days.
 - Add up to 64 devices, each with its own time per frame.
+- Assign an exact frame count to each device, or choose an automatic split by speed. Manual assignments must sum to the total frame count.
 - Estimate completion from a start time, work backward from a finish deadline, or check a start/end window.
-- Show a whole-frame workload split across devices.
+- Show whole-frame workloads and render times for each device.
+
+For example, assign 2,500 of 4,000 frames to Render PC and 1,500 to Workstation. If both take one minute per frame, the complete render takes 2,500 minutes (41 hours 40 minutes). If Workstation takes two minutes per frame, it finishes last and the complete render takes 3,000 minutes (50 hours).
+
+Input fields start empty; grey examples are placeholders, not values.
 
 Render estimates assume every device starts together, renders at a constant speed, and receives the displayed frame allocation. Setup and file transfers are excluded. Dates use the browser's local time zone.
 

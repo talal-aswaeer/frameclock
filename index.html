@@ -18,6 +18,8 @@
     button:disabled { cursor:not-allowed; opacity:.4; }
     button:focus-visible,input:focus-visible,select:focus-visible { outline:2px solid var(--accent); outline-offset:3px; }
     input,select { min-width:0; }
+    input::placeholder { color:#777480; opacity:1; }
+    input[type=datetime-local]:not(.has-value) { color:#777480; }
     input[type=number] { -moz-appearance:textfield; }
     input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
     input::-webkit-calendar-picker-indicator { opacity:.65; cursor:pointer; }
@@ -60,14 +62,21 @@
     .text-button { border:0; background:transparent; color:var(--accent); padding:6px 0 6px 8px; display:inline-flex; align-items:center; gap:6px; font-size:14px; }
     .text-button svg { width:16px; height:16px; }
     .text-button:hover { color:#ddd0ff; }
-    .device { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.8fr) 100px 30px; gap:9px; align-items:center; margin-bottom:10px; }
+    .device { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr) 94px 28px; gap:10px 8px; align-items:center; margin-bottom:12px; padding:12px; border:1px solid #34313d; border-radius:10px; background:#17171d; }
     .device .field { height:44px; padding:9px 10px; font-size:14px; }
-    .device-name { display:flex; align-items:center; gap:9px; min-width:0; }
+    .device-name { display:flex; align-items:center; gap:9px; min-width:0; grid-column:1/4; grid-row:1; }
+    .device-field { display:block; margin:0; font-size:12px; color:var(--muted); }
+    .device-field .field { display:block; margin-top:6px; }
+    .assigned-field { grid-column:1; grid-row:2; }
+    .frame-time-field { grid-column:2; grid-row:2; }
+    .unit-field { grid-column:3/5; grid-row:2; }
+    .automatic-allocation .assigned-field { display:none; }
+    .automatic-allocation .frame-time-field { grid-column:1/3; }
+    .allocation-tabs { grid-template-columns:repeat(2,minmax(0,1fr)) !important; margin-bottom:15px; }
     .device-dot { width:7px; height:20px; border-radius:3px; flex:none; }
     .device-name input { padding-left:0 !important; border-color:transparent; background:transparent; }
     .device-name input:hover,.device-name input:focus { padding-left:7px !important; border-color:#544a65; }
-    .device-labels { display:grid; grid-template-columns:minmax(0,1.15fr) minmax(0,.8fr) 100px 30px; gap:9px; margin-bottom:8px; color:var(--muted); font-size:13px; }
-    .remove-device { display:grid; place-items:center; width:30px; height:34px; border:0; border-radius:7px; background:transparent; color:#95909e; }
+    .remove-device { display:grid; place-items:center; grid-column:4; grid-row:1; width:28px; height:34px; border:0; border-radius:7px; background:transparent; color:#95909e; }
     .remove-device:hover { background:#392a2e; color:#ffbdcd; }
     .remove-device svg { width:16px; height:16px; }
     .small-note { font-size:13px; color:var(--muted); line-height:1.55; margin:14px 0 0; }
@@ -153,10 +162,11 @@
     .converter-note { padding-top:17px; margin:13px 0 0; border-top:1px solid #30303a; color:var(--muted); font-size:13px; }
     @media(max-width:400px) { .tool-button { padding:9px 11px; gap:6px; font-size:13px; } .converter-pair { grid-template-columns:minmax(0,1fr) 98px; gap:10px; } .comparison-table th,.comparison-table td { padding-left:5px; padding-right:5px; } #converter-mode-tabs .tab { font-size:12px; padding:9px 4px; } }
     @media(min-width:1000px) { .results { position:sticky; top:24px; } }
-    @media(max-width:950px) { .shell { padding:0 24px; } .layout { gap:18px; } .panel { padding:20px; } .device { grid-template-columns:minmax(0,1fr) 75px 84px 28px; gap:6px; } .device-labels { grid-template-columns:minmax(0,1fr) 75px 84px 28px; gap:6px; } .duration { font-size:47px; } .conversion .value { font-size:15px; } }
-    @media(max-width:760px) { .layout { grid-template-columns:1fr; } .topbar { min-height:88px; } .zone-tag { font-size:12px; max-width:45%; overflow-wrap:anywhere; } main { padding-top:26px; } .page-heading { align-items:flex-start; } h1 { font-size:28px; } .intro { font-size:14px; max-width:250px; } .live-tag { font-size:12px; } .duration { font-size:54px; } .device,.device-labels { grid-template-columns:minmax(0,1fr) minmax(68px,.65fr) 93px 28px; } .conversion .value { font-size:17px; } footer { flex-wrap:wrap; } }
-    @media(max-width:400px) { .shell { padding:0 16px; } .panel { padding:18px; } .brand-name { font-size:20px; } .brand-caption { font-size:12px; } .brand { gap:9px; } .brand-icon { width:38px; height:38px; } .zone-tag { max-width:40%; gap:5px; } .zone-tag svg { display:none; } .page-heading { gap:7px; } .live-tag { padding:5px 7px; } .fields { gap:12px; } .device,.device-labels { grid-template-columns:minmax(0,1fr) 62px 83px 26px; gap:5px; } .device .field { padding:9px 6px; } .duration { font-size:46px; } .duration span.unit { font-size:25px; } .conversion .value { font-size:15px; } .tab { font-size:13px; } .timeline-text > div { font-size:12px; } }
+    @media(max-width:950px) { .shell { padding:0 24px; } .layout { gap:18px; } .panel { padding:20px; } .device { grid-template-columns:minmax(0,1fr) minmax(0,1fr) 60px 26px; gap:10px 6px; } .duration { font-size:47px; } .conversion .value { font-size:15px; } }
+    @media(max-width:760px) { .layout { grid-template-columns:1fr; } .topbar { min-height:88px; } .zone-tag { font-size:12px; max-width:45%; overflow-wrap:anywhere; } main { padding-top:26px; } .page-heading { align-items:flex-start; } h1 { font-size:28px; } .intro { font-size:14px; max-width:250px; } .live-tag { font-size:12px; } .duration { font-size:54px; } .conversion .value { font-size:17px; } footer { flex-wrap:wrap; } }
+    @media(max-width:400px) { .shell { padding:0 16px; } .panel { padding:18px; } .brand-name { font-size:20px; } .brand-caption { font-size:12px; } .brand { gap:9px; } .brand-icon { width:38px; height:38px; } .zone-tag { max-width:40%; gap:5px; } .zone-tag svg { display:none; } .page-heading { gap:7px; } .live-tag { padding:5px 7px; } .fields { gap:12px; } .device { grid-template-columns:minmax(0,1fr) minmax(0,1fr) 54px 26px; padding:10px; gap:10px 5px; } .device .field { padding:9px 6px; font-size:13px; } .duration { font-size:46px; } .duration span.unit { font-size:25px; } .conversion .value { font-size:15px; } .tab { font-size:13px; } .timeline-text > div { font-size:12px; } }
     @media(prefers-reduced-motion:reduce) { * { transition:none !important; } }
+    @media(max-width:400px) { .fields { grid-template-columns:minmax(0,1fr) minmax(0,1fr); } .number-shell input { padding-left:8px; padding-right:8px; } .conversions { grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; } }
   </style>
 </head>
 <body>
@@ -182,11 +192,11 @@
           <section class="panel" aria-labelledby="setup-title">
             <h2 class="panel-title" id="setup-title"><span class="section-number" aria-hidden="true">01</span> Render setup</h2>
             <div class="fields">
-              <div><label for="frames">Total frames</label><input class="field" type="number" id="frames" value="1000" min="1" max="1000000000" step="1" inputmode="numeric" aria-describedby="setup-error"></div>
+              <div><label for="frames">Total frames</label><input class="field" type="number" id="frames" placeholder="e.g. 4000" min="1" max="1000000000" step="1" inputmode="numeric" aria-describedby="setup-error"></div>
               <div>
                 <label for="device-count">Devices</label>
                 <div class="number-shell">
-                  <input type="number" id="device-count" value="1" min="1" max="64" step="1" inputmode="numeric" aria-describedby="setup-error">
+                  <input type="number" id="device-count" placeholder="e.g. 2" min="1" max="64" step="1" inputmode="numeric" aria-describedby="setup-error">
                   <div class="stepper">
                     <button type="button" id="decrease-devices" aria-label="Remove last device"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/></svg></button>
                     <button type="button" id="increase-devices" aria-label="Add one device"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg></button>
@@ -195,10 +205,13 @@
               </div>
             </div>
             <div class="divider"></div>
-            <div class="device-heading"><h3>Time per frame</h3><button type="button" class="text-button" id="add-device"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg> Add device</button></div>
-            <div class="device-labels" aria-hidden="true"><span>Device name</span><span>Frame time</span><span>Unit</span><span></span></div>
+            <div class="device-heading"><h3>Devices &amp; workloads</h3><button type="button" class="text-button" id="add-device"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5v14"/></svg> Add device</button></div>
+            <div class="tabs allocation-tabs" role="group" aria-label="Frame assignment">
+              <button class="tab" type="button" data-allocation="manual" aria-pressed="true">Assign frames</button>
+              <button class="tab" type="button" data-allocation="auto" aria-pressed="false">Auto by speed</button>
+            </div>
             <div id="device-list"></div>
-            <p class="small-note">Different speeds? Set a frame time for each device.</p>
+            <p class="small-note" id="allocation-hint">Enter each device’s frame count and time per frame. Assigned frames must match the total.</p>
             <div class="error" id="setup-error" role="alert" hidden></div>
           </section>
           <section class="panel" aria-labelledby="schedule-title">
@@ -225,13 +238,13 @@
         <div class="results" aria-label="Render estimate">
           <section class="panel estimate" aria-labelledby="estimate-title">
             <div class="estimate-heading"><h2 class="eyebrow" id="estimate-title">Estimated render time</h2><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6M12 2v3"/></svg></div>
-            <div class="duration" id="duration" aria-live="polite" aria-atomic="true">16<span class="unit">h</span> 40<span class="unit">m</span></div>
-            <p class="duration-subtitle" id="duration-subtitle">1,000 frames across 1 device</p>
+            <div class="duration" id="duration" aria-live="polite" aria-atomic="true">—</div>
+            <p class="duration-subtitle" id="duration-subtitle">Complete your render setup to see an estimate.</p>
             <div class="conversions">
-              <div class="conversion"><div class="value" id="seconds">60,000</div><div class="label">Seconds</div></div>
-              <div class="conversion"><div class="value" id="minutes">1,000</div><div class="label">Minutes</div></div>
-              <div class="conversion"><div class="value" id="hours">16.6667</div><div class="label">Hours</div></div>
-              <div class="conversion"><div class="value" id="days">0.6944</div><div class="label">Days</div></div>
+              <div class="conversion"><div class="value" id="seconds">—</div><div class="label">Seconds</div></div>
+              <div class="conversion"><div class="value" id="minutes">—</div><div class="label">Minutes</div></div>
+              <div class="conversion"><div class="value" id="hours">—</div><div class="label">Hours</div></div>
+              <div class="conversion"><div class="value" id="days">—</div><div class="label">Days</div></div>
             </div>
           </section>
           <section class="panel finish-panel" aria-labelledby="finish-title">
@@ -245,10 +258,10 @@
             </div>
           </section>
           <section class="panel" aria-labelledby="allocation-title">
-            <div class="allocation-title"><h2 id="allocation-title">Workload split</h2><span class="speed" id="speed">1× faster</span></div>
+            <div class="allocation-title"><h2 id="allocation-title">Device workloads</h2><span class="speed" id="speed"></span></div>
             <div class="allocation-bar" id="allocation-bar" aria-hidden="true"></div>
             <div id="allocation-list"></div>
-            <p class="method">All devices start together. Frames are split by device speed and kept whole; setup, file transfers, and changes in frame complexity are excluded.</p>
+            <p class="method" id="allocation-method">All devices start together. The render finishes when the last device completes its assigned frames. Setup, file transfers, and changes in frame complexity are excluded.</p>
           </section>
         </div>
       </div>
@@ -262,20 +275,20 @@
               <button class="tab" type="button" data-conversion="target" aria-pressed="false">Target FPS</button>
             </div>
             <div class="converter-fields">
-              <div id="converter-frame-field" hidden><label for="converter-frames">Animation frames</label><input class="field" type="number" id="converter-frames" value="400" min="1" max="1000000000" step="1" inputmode="numeric" aria-describedby="converter-error"></div>
+              <div id="converter-frame-field" hidden><label for="converter-frames">Animation frames</label><input class="field" type="number" id="converter-frames" placeholder="e.g. 400" min="1" max="1000000000" step="1" inputmode="numeric" aria-describedby="converter-error"></div>
               <div id="converter-time-field">
                 <label for="converter-time" id="converter-time-label">Animation duration</label>
                 <div class="converter-pair">
-                  <input class="field" type="number" id="converter-time" value="40" min="0.001" step="any" inputmode="decimal" aria-describedby="converter-error">
+                  <input class="field" type="number" id="converter-time" placeholder="e.g. 40" min="0.001" step="any" inputmode="decimal" aria-describedby="converter-error">
                   <select class="field" id="converter-time-unit" aria-label="Animation duration unit"><option value="seconds">Seconds</option><option value="minutes">Minutes</option><option value="hours">Hours</option></select>
                 </div>
               </div>
               <div>
                 <label for="converter-fps" id="converter-fps-label">Frame rate (FPS)</label>
-                <input class="field" type="number" id="converter-fps" value="25" min="0.001" max="1000" step="any" inputmode="decimal" aria-describedby="converter-error">
-                <div class="converter-presets" role="group" aria-label="Frame rate presets"><button class="fps-preset" type="button" data-fps="24" aria-pressed="false">24 FPS</button><button class="fps-preset" type="button" data-fps="25" aria-pressed="true">25 FPS</button><button class="fps-preset" type="button" data-fps="30" aria-pressed="false">30 FPS</button><button class="fps-preset" type="button" data-fps="60" aria-pressed="false">60 FPS</button></div>
+                <input class="field" type="number" id="converter-fps" placeholder="e.g. 25" min="0.001" max="1000" step="any" inputmode="decimal" aria-describedby="converter-error">
+                <div class="converter-presets" role="group" aria-label="Frame rate presets"><button class="fps-preset" type="button" data-fps="24" aria-pressed="false">24 FPS</button><button class="fps-preset" type="button" data-fps="25" aria-pressed="false">25 FPS</button><button class="fps-preset" type="button" data-fps="30" aria-pressed="false">30 FPS</button><button class="fps-preset" type="button" data-fps="60" aria-pressed="false">60 FPS</button></div>
               </div>
-              <div><label for="converter-rates">Compare frame rates</label><input class="field" type="text" id="converter-rates" value="24, 25, 30, 50, 60" aria-describedby="converter-rates-hint converter-error"><p class="small-note" id="converter-rates-hint">Separate rates with commas. Custom rates such as 23.976 are welcome.</p></div>
+              <div><label for="converter-rates">Compare frame rates</label><input class="field" type="text" id="converter-rates" placeholder="e.g. 24, 25, 30, 50, 60" aria-describedby="converter-rates-hint converter-error"><p class="small-note" id="converter-rates-hint">Separate rates with commas. Custom rates such as 23.976 are welcome.</p></div>
             </div>
             <p class="converter-note" id="converter-formula">Duration × FPS = frames. Fractional frames round up.</p>
             <div class="error" id="converter-error" role="alert" hidden></div>
@@ -284,10 +297,10 @@
         <div class="results" aria-label="Animation conversion results">
           <section class="panel estimate" aria-labelledby="converter-result-title">
             <div class="estimate-heading"><h2 class="eyebrow" id="converter-result-title">Frames to render</h2><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/></svg></div>
-            <div class="duration" id="converter-result" aria-live="polite" aria-atomic="true">1,000<span class="unit"> frames</span></div>
-            <p class="duration-subtitle converter-subtitle" id="converter-summary">40 seconds at 25 FPS</p>
-            <p class="converter-detail" id="converter-detail">Playback duration: 40s.</p>
-            <button type="button" class="primary-button" id="use-converter-frames">Use 1,000 frames in render planner</button>
+            <div class="duration" id="converter-result" aria-live="polite" aria-atomic="true">—</div>
+            <p class="duration-subtitle converter-subtitle" id="converter-summary">Complete the conversion inputs to see a result.</p>
+            <p class="converter-detail" id="converter-detail"></p>
+            <button type="button" class="primary-button" id="use-converter-frames" disabled>Use frames in render planner</button>
           </section>
           <section class="panel" aria-labelledby="comparison-title">
             <div class="comparison-heading"><h2 id="comparison-title">Frame rate comparison</h2><span>Selected rate highlighted</span></div>
@@ -302,8 +315,9 @@
   <template id="device-template">
     <div class="device">
       <div class="device-name"><span class="device-dot" aria-hidden="true"></span><input class="field name" type="text" maxlength="60" autocomplete="off" spellcheck="false"></div>
-      <input class="field frame-time" type="number" min="0.001" step="any" inputmode="decimal">
-      <select class="field unit"><option value="seconds">Seconds</option><option value="minutes">Minutes</option><option value="hours">Hours</option></select>
+      <label class="device-field assigned-field">Frames<input class="field frame-count" type="number" min="0" max="1000000000" step="1" inputmode="numeric"></label>
+      <label class="device-field frame-time-field">Per frame<input class="field frame-time" type="number" placeholder="e.g. 1" min="0.001" step="any" inputmode="decimal"></label>
+      <label class="device-field unit-field">Unit<select class="field unit"><option value="seconds">Seconds</option><option value="minutes">Minutes</option><option value="hours">Hours</option></select></label>
       <button type="button" class="remove-device"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
     </div>
   </template>
@@ -314,7 +328,8 @@
     const unitMs = { seconds: 1000, minutes: 60000, hours: 3600000 };
     const colors = ['#bca5ff','#8acbd9','#e7b78f','#a0d29f','#e2a2c7','#8caff1','#d6d38c','#c7bcb0'];
     let nextId = 1;
-    let devices = [{ id: nextId++, name: 'Device 01', value: '1', unit: 'minutes' }];
+    let devices = [{ id: nextId++, name: '', value: '', frames: '', unit: 'minutes' }];
+    let allocationMode = 'manual';
     let mode = 'start';
     let latestResult = null;
     const nf = new Intl.NumberFormat('en-US', { maximumFractionDigits: 4 });
@@ -361,9 +376,17 @@
     }
     // Find the earliest millisecond at which the devices can finish N whole frames.
     // Searching completion capacity avoids fractional-frame estimates or averaging speeds.
-    function calculateRender(frames, times) {
+    function calculateRender(frames, times, assigned = null) {
       if (!Number.isInteger(frames) || frames < 1 || frames > 1e9) throw new Error('Enter a whole frame count from 1 to 1,000,000,000.');
       if (!Array.isArray(times) || !times.length || times.length > 64 || times.some(t => !Number.isSafeInteger(t) || t < 1)) throw new Error('Every device needs a positive frame time.');
+      if (assigned !== null) {
+        if (!Array.isArray(assigned) || assigned.length !== times.length || assigned.some(n => !Number.isInteger(n) || n < 0 || n > 1e9)) throw new Error('Enter a whole assigned frame count for every device, including 0 for an idle device.');
+        const total=assigned.reduce((sum,n)=>sum+n,0);
+        if (total !== frames) throw new Error(total<frames?`Assign ${frames-total} more frames to match the total.`:`Remove ${total-frames} assigned frames to match the total.`);
+        const durationMs=Math.max(...assigned.map((count,i)=>count*times[i]));
+        if (!Number.isSafeInteger(durationMs)) throw new Error('This render is too long to estimate. Reduce the frame count or frame time.');
+        return {durationMs,allocation:assigned.slice()};
+      }
       let low=0, high=Math.min(...times)*frames;
       if (!Number.isSafeInteger(high)) throw new Error('This render is too long to estimate. Reduce the frame count or frame time.');
       const capacity = t => {
@@ -384,7 +407,7 @@
       return { durationMs, allocation };
     }
     function getInput() {
-      const frames=Number($('frames').value), count=Number($('device-count').value);
+      const frames=Number($('frames').value), count=$('device-count').value===''?devices.length:Number($('device-count').value);
       if (!Number.isInteger(count) || count<1 || count>64 || count!==devices.length) throw new Error('Choose a whole device count from 1 to 64.');
       const times=devices.map((device,i) => {
         const value=Number(device.value), scale=unitMs[device.unit];
@@ -393,7 +416,7 @@
         }
         return Math.round(value*scale);
       });
-      return { frames, times };
+      return { frames, times, assigned:allocationMode==='manual'?devices.map(device=>Number(device.frames)):null };
     }
     function showError(id,error) { $(id).textContent=error || ''; $(id).hidden=!error; }
     function clearSchedule() {
@@ -412,13 +435,15 @@
         const row=$('device-template').content.firstElementChild.cloneNode(true);
         row.dataset.id=device.id;
         row.querySelector('.device-dot').style.background=colors[i%colors.length];
-        const name=row.querySelector('.name'), value=row.querySelector('.frame-time'), unit=row.querySelector('.unit'), remove=row.querySelector('.remove-device');
-        name.value=device.name; name.setAttribute('aria-label',`Device ${i+1} name`);
+        const name=row.querySelector('.name'), value=row.querySelector('.frame-time'), assigned=row.querySelector('.frame-count'), unit=row.querySelector('.unit'), remove=row.querySelector('.remove-device');
+        name.value=device.name; name.placeholder=`Device ${pad(i+1)}`; name.setAttribute('aria-label',`Device ${i+1} name`);
         value.value=device.value; value.min=String(1/unitMs[device.unit]); value.setAttribute('aria-label',`Device ${i+1} time per frame`);
+        assigned.value=device.frames; assigned.placeholder=i===0?'2500':'1500'; assigned.setAttribute('aria-label',`Device ${i+1} assigned frames`);
         unit.value=device.unit; unit.setAttribute('aria-label',`Device ${i+1} frame time unit`);
         remove.setAttribute('aria-label',`Remove device ${i+1}`); remove.disabled=devices.length===1;
         name.addEventListener('input',()=>{device.name=name.value; update();});
         value.addEventListener('input',()=>{device.value=value.value; update();});
+        assigned.addEventListener('input',()=>{device.frames=assigned.value; update();});
         unit.addEventListener('change',()=>{device.unit=unit.value; value.min=String(1/unitMs[device.unit]); update();});
         remove.addEventListener('click',()=>{
           const focusIndex=Math.max(0,i-1);
@@ -435,10 +460,16 @@
     function changeCount(count) {
       if (!Number.isInteger(count) || count<1 || count>64) { update(); return; }
       while(devices.length<count) {
-        const source=devices[devices.length-1] || {value:'1',unit:'minutes'};
-        const id=nextId++; devices.push({id,name:`Device ${pad(id)}`,value:source.value,unit:source.unit});
+        const id=nextId++; devices.push({id,name:'',value:'',frames:'',unit:'minutes'});
       }
       devices=devices.slice(0,count); $('device-count').value=count; renderDevices(); update();
+    }
+    function setAllocationMode(nextMode) {
+      allocationMode=nextMode;
+      $('device-list').classList.toggle('automatic-allocation',allocationMode==='auto');
+      document.querySelectorAll('[data-allocation]').forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.allocation===allocationMode)));
+      $('allocation-method').textContent=allocationMode==='manual'?'All devices start together. The render finishes when the last device completes its assigned frames. Setup, file transfers, and changes in frame complexity are excluded.':'All devices start together. Frames are split by device speed and kept whole. Setup, file transfers, and changes in frame complexity are excluded.';
+      update();
     }
     function setMode(nextMode) {
       mode=nextMode;
@@ -496,8 +527,12 @@
     }
     function update() {
       latestResult=null; showError('setup-error',''); showError('schedule-error','');
+      for(const id of ['start-at','end-at']) $(id).classList.toggle('has-value',$(id).value!=='');
+      const total=Number($('frames').value), assignedTotal=devices.reduce((sum,device)=>sum+(Number(device.frames)||0),0);
+      $('allocation-hint').textContent=allocationMode==='auto'?'Frames are assigned automatically based on each device’s speed.':total>0?`${intf.format(assignedTotal)} of ${intf.format(total)} frames assigned${assignedTotal===total?' · Total matches.':assignedTotal<total?` · ${intf.format(total-assignedTotal)} unassigned.`:` · ${intf.format(assignedTotal-total)} too many.`}`:'Enter each device’s frame count and time per frame. Assigned frames must match the total.';
+      if($('frames').value==='' || devices.some(device=>device.value==='' || (allocationMode==='manual' && device.frames===''))) { clearResults(); return; }
       let input,result;
-      try { input=getInput(); result=calculateRender(input.frames,input.times); }
+      try { input=getInput(); result=calculateRender(input.frames,input.times,input.assigned); }
       catch(error) { showError('setup-error',error.message); clearResults(); return; }
       drawDuration(result.durationMs);
       $('duration-subtitle').textContent=`${intf.format(input.frames)} ${input.frames===1?'frame':'frames'} across ${devices.length} ${devices.length===1?'device':'devices'}`;
@@ -506,7 +541,8 @@
         $(id).textContent=converted<0.0001?converted.toExponential(3):nf.format(converted);
       }
       renderAllocation(result,input.frames,input.times);
-      latestResult={...result,frames:input.frames,devices:devices.length,seconds:result.durationMs/1000,minutes:result.durationMs/60000,hours:result.durationMs/3600000,days:result.durationMs/86400000};
+      latestResult={...result,allocationMode,frames:input.frames,devices:devices.length,seconds:result.durationMs/1000,minutes:result.durationMs/60000,hours:result.durationMs/3600000,days:result.durationMs/86400000};
+      if((mode!=='deadline' && $('start-at').value==='') || (mode!=='start' && $('end-at').value==='')) { clearSchedule(); return; }
       try { Object.assign(latestResult,renderSchedule(result.durationMs)); }
       catch(error) { showError('schedule-error',error.message); clearSchedule(); latestResult.scheduleError=error.message; }
     }
@@ -515,6 +551,7 @@
     $('increase-devices').addEventListener('click',()=>changeCount(devices.length+1));
     $('decrease-devices').addEventListener('click',()=>changeCount(devices.length-1));
     $('add-device').addEventListener('click',()=>changeCount(devices.length+1));
+    document.querySelectorAll('[data-allocation]').forEach(button=>button.addEventListener('click',()=>setAllocationMode(button.dataset.allocation)));
     document.querySelectorAll('[data-mode]').forEach(button=>button.addEventListener('click',()=>setMode(button.dataset.mode)));
     for(const id of ['start-at','end-at']) $(id).addEventListener('input',update);
     $('start-now').addEventListener('click',()=>{$('start-at').value=localInput(new Date());update();});
@@ -563,9 +600,14 @@
     }
     function updateConverter() {
       latestConversion=null; showError('converter-error','');
+      $('converter-result-title').textContent={duration:'Frames to render',frames:'Animation duration',target:'Required frame rate'}[converterMode];
       const frames=Number($('converter-frames').value), fps=Number($('converter-fps').value);
       const seconds=Number($('converter-time').value)*unitMs[$('converter-time-unit').value]/1000;
       document.querySelectorAll('[data-fps]').forEach(button=>button.setAttribute('aria-pressed',String(Number(button.dataset.fps)===fps)));
+      if($('converter-fps').value==='' || (converterMode!=='duration' && $('converter-frames').value==='') || (converterMode!=='frames' && $('converter-time').value==='')) {
+        $('converter-result').textContent='—'; $('converter-summary').textContent='Complete the conversion inputs to see a result.';
+        $('converter-detail').textContent=''; $('converter-comparison').replaceChildren(); $('use-converter-frames').disabled=true; $('use-converter-frames').textContent='Use frames in render planner'; return;
+      }
       try { latestConversion=calculateConversion(converterMode,frames,seconds,fps,parseComparisonRates($('converter-rates').value)); }
       catch(error) {
         showError('converter-error',error.message); $('converter-result').textContent='—'; $('converter-summary').textContent='Complete the conversion inputs to see a result.';
@@ -614,8 +656,6 @@
       $('frames').value=latestConversion.framesForRender; update(); setTool('render'); $('frames').focus();
     });
     updateConverter();
-    const now=new Date(); now.setSeconds(0,0);
-    $('start-at').value=localInput(now); $('end-at').value=localInput(new Date(now.getTime()+86400000));
     $('timezone').textContent=Intl.DateTimeFormat().resolvedOptions().timeZone || 'Local time';
     renderDevices(); update();
     // Optional browser tool integration; regular browsers need no API or dependencies.
@@ -627,10 +667,11 @@
         Promise.resolve(modelContext.registerTool({
           name:'configure_render_estimate',
           title:'Configure render estimate',
-          description:'Set the visible frame count, device frame times, and schedule, then return the calculated duration, frame split, start, and finish. Dates use browser local time as YYYY-MM-DDTHH:mm:ss.',
+          description:'Set the total frames, device frame times, optional assigned frame counts, and schedule. Manual assignments must sum to the total; completion follows the last device. Without assignments, split by speed. Dates use browser local time as YYYY-MM-DDTHH:mm:ss.',
           inputSchema:{type:'object',properties:{
             frames:{type:'integer',minimum:1,maximum:1000000000},
-            devices:{type:'array',minItems:1,maxItems:64,items:{type:'object',properties:{name:{type:'string',maxLength:60},time:{type:'number',exclusiveMinimum:0},unit:{type:'string',enum:['seconds','minutes','hours']}},required:['time','unit'],additionalProperties:false}},
+            devices:{type:'array',minItems:1,maxItems:64,items:{type:'object',properties:{name:{type:'string',maxLength:60},frames:{type:'integer',minimum:0,maximum:1000000000},time:{type:'number',exclusiveMinimum:0},unit:{type:'string',enum:['seconds','minutes','hours']}},required:['time','unit'],additionalProperties:false}},
+            allocationMode:{type:'string',enum:['manual','auto']},
             mode:{type:'string',enum:['start','deadline','window']},
             start:{type:'string'},deadline:{type:'string'}
           },required:['frames','devices'],additionalProperties:false},
@@ -639,20 +680,24 @@
             if(!input || typeof input!=='object' || !Array.isArray(input.devices) || input.devices.length<1 || input.devices.length>64) throw new Error('Provide between 1 and 64 devices.');
             const nextMode=input.mode ?? 'start';
             if(!['start','deadline','window'].includes(nextMode)) throw new Error('Invalid scheduling mode.');
+            const nextAllocationMode=input.allocationMode ?? (input.devices.some(device=>device?.frames!=null)?'manual':'auto');
+            if(!['manual','auto'].includes(nextAllocationMode)) throw new Error('Invalid frame assignment mode.');
             const nextDevices=input.devices.map((device,i)=>{
               if(!device || typeof device.time!=='number' || !Number.isFinite(device.time) || device.time<=0 || !Object.hasOwn(unitMs,device.unit) || device.time*unitMs[device.unit]<1) throw new Error('Each device needs a positive frame time of at least 0.001 seconds and a valid unit.');
               if(device.name!=null && (typeof device.name!=='string' || device.name.length>60)) throw new Error('Device names must be at most 60 characters.');
-              return {name:device.name || `Device ${pad(i+1)}`,value:String(device.time),unit:device.unit};
+              if(device.frames!=null && (!Number.isInteger(device.frames) || device.frames<0 || device.frames>1e9)) throw new Error('Assigned frames must be whole numbers from 0 to 1,000,000,000.');
+              if(nextAllocationMode==='manual' && device.frames==null) throw new Error('Assign frames to every device in manual mode.');
+              return {name:device.name || '',value:String(device.time),frames:device.frames==null?'':String(device.frames),unit:device.unit};
             });
             const times=nextDevices.map(device=>Math.round(Number(device.value)*unitMs[device.unit]));
-            const estimate=calculateRender(input.frames,times);
+            const estimate=calculateRender(input.frames,times,nextAllocationMode==='manual'?nextDevices.map(device=>Number(device.frames)):null);
             const startValue=input.start ?? $('start-at').value, endValue=input.deadline ?? $('end-at').value;
-            calculateSchedule(estimate.durationMs,nextMode,startValue,endValue);
+            if((nextMode==='deadline' || startValue) && (nextMode==='start' || endValue)) calculateSchedule(estimate.durationMs,nextMode,startValue,endValue);
             devices=nextDevices.map(device=>({...device,id:nextId++}));
             $('frames').value=input.frames; $('device-count').value=devices.length;
             $('start-at').value=startValue; $('end-at').value=endValue;
-            renderDevices(); setMode(nextMode);
-            return {...latestResult,allocation:latestResult.allocation.map((frames,i)=>({device:devices[i].name,frames}))};
+            renderDevices(); mode=nextMode; setAllocationMode(nextAllocationMode); setMode(nextMode);
+            return {...latestResult,allocation:latestResult.allocation.map((frames,i)=>({device:devices[i].name || `Device ${i+1}`,frames}))};
           }
         },{signal:lifecycle.signal})).catch(()=>{});
         Promise.resolve(modelContext.registerTool({
